@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(tableName = "dog", foreignKeys = {@ForeignKey(entity = Breed.class, parentColumns = "id", childColumns = "breedId", onDelete = ForeignKey.CASCADE)})
+@Entity(tableName = "dog", foreignKeys = {@ForeignKey(entity = Breed.class, parentColumns = "id", childColumns = "breedId")})
 public class Dog {
 
     @PrimaryKey(autoGenerate = true)
