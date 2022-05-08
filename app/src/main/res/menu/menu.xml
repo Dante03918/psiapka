@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    <item android:id="@+id/hamburger"-->
+<!--          android:title="title"-->
+<!--          android:icon="@drawable/ic___leading_icon_l_use_high_emphasis"-->
+<!--          app:showAsAction="never"/>-->
+
+</menu>

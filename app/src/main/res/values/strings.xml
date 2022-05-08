@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Next trainee app</string>
+    <string name="add_breed_image">Dodaj zdjęcie</string>
+    <string name="apply">Dodaj</string>
+
+
+    <!-- hints -->
+
+    <string name="add_breed_input_field">Rasa</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
