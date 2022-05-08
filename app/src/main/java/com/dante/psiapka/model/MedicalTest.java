@@ -5,8 +5,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "thumbnail_file", foreignKeys = {@ForeignKey(entity = Dog.class, parentColumns = "id", childColumns = "dog_id")})
-public class ThumbnailFile {
+@Entity(tableName = "medical_test", foreignKeys = {@ForeignKey(entity = Dog.class, parentColumns = "id", childColumns = "dog_id")})
+public class MedicalTest {
 
     @PrimaryKey(autoGenerate = true)
     int id;
@@ -14,7 +14,6 @@ public class ThumbnailFile {
     @ColumnInfo(name = "dog_id")
     int dogId;
 
-    @ColumnInfo(name = "url")
-    String fileNameUrl;
-
+    @ColumnInfo(name = "test_url")
+    String testUrl;
 }
