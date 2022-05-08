@@ -1,11 +1,11 @@
-package com.dante.nexttraineeapp;
+package com.dante.psiapka;
 
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 //import com.dante.nexttraineeapp.databinding.ActivityMainBinding;
 import androidx.fragment.app.Fragment;
-import com.dante.nexttraineeapp.interfaces.PassDataBetweenFragmentAndActivity;
+import com.dante.psiapka.interfaces.PassDataBetweenFragmentAndActivity;
 
 public class MainActivity extends AppCompatActivity implements PassDataBetweenFragmentAndActivity {
 

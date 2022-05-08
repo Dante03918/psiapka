@@ -1,4 +1,4 @@
-package model;
+package com.dante.psiapka.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

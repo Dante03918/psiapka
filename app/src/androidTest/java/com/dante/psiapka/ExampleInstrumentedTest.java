@@ -1,4 +1,4 @@
-package com.dante.nexttraineeapp;
+package com.dante.psiapka;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

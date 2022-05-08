@@ -1,4 +1,4 @@
-package com.dante.nexttraineeapp.interfaces;
+package com.dante.psiapka.interfaces;
 
 public interface PassDataBetweenFragmentAndActivity {
 

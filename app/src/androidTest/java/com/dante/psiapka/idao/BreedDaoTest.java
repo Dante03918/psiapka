@@ -1,12 +1,12 @@
-package com.dante.nexttraineeapp.idao;
+package com.dante.psiapka.idao;
 
 import android.content.Context;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import com.dante.nexttraineeapp.configurations.Database;
+import com.dante.psiapka.configurations.Database;
 import junit.framework.TestCase;
-import model.Breed;
+import com.dante.psiapka.model.Breed;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
