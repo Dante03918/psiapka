@@ -16,6 +16,6 @@ public interface HeatDao {
     @Insert
     void insertHeat(Heat heat);
 
-    @Delete
-    void deleteHeat(int id);
+//    @Delete
+//    void deleteHeat(int id);  // IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID
 }

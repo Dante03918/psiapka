@@ -1,9 +1,11 @@
 package com.dante.psiapka.model;
 
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.util.Date;
 
@@ -11,40 +13,79 @@ import java.util.Date;
 public class Dog {
 
     @PrimaryKey(autoGenerate = true)
-    int id;
+    public int id;
     @ColumnInfo(name = "breedId")   //foreign key from breed table
-    int breedId;
+    public int breedId;
     @ColumnInfo(name = "pedigreeName")
-    String pedigreeName;
+    public String pedigreeName;
     @ColumnInfo(name = "name")
-    String name;
+    public String name;
+    @TypeConverters(com.dante.psiapka.utils.TypeConverters.class)
     @ColumnInfo(name = "gender")
-    Enum<Gender> gender;
+    public Enum<Gender> gender;
     @ColumnInfo(name = "dateOfBirth")
-    Date dateOfBirth;
+    public Date dateOfBirth;
     @ColumnInfo(name = "chipNumber")
-    int chipNumber;
+    public int chipNumber;
     @ColumnInfo(name = "titles")
-    String titles;
+    public String titles;
     @ColumnInfo(name = "rabiesVaccDate")
-    Date rabiesVaccDate;
+    public Date rabiesVaccDate;
     @ColumnInfo(name = "virusVaccDate")
-    Date virusVaccDate;
+    public Date virusVaccDate;
     @ColumnInfo(name = "allergies")
-    String allergies;
+    public String allergies;
     @ColumnInfo(name = "thumbnailUrl")
-    String thumbnailUrl;
+    public String thumbnailUrl;
     @ColumnInfo(name = "pedigreeUrl")
-    String pedigreeUrl;
+    public String pedigreeUrl;
     @ColumnInfo(name = "fatherId")   //foreign key from breed table
-    String fatherId;
+    public String fatherId;
     @ColumnInfo(name = "fatherName")
-    String fatherName;
+    public String fatherName;
     @ColumnInfo(name = "motherId")   //foreign key from breed table
-    String motherId;
+    public String motherId;
     @ColumnInfo(name = "motherName")
-    String motherName;
+    public String motherName;
+    @Nullable
     @ColumnInfo(name = "notes")
-    String notes;
+    public String notes;
 
+    public Dog(int id,
+               int breedId,
+               String pedigreeName,
+               String name,
+               Enum<Gender> gender,
+               Date dateOfBirth,
+               int chipNumber,
+               String titles,
+               Date rabiesVaccDate,
+               Date virusVaccDate,
+               String allergies,
+               String thumbnailUrl,
+               String pedigreeUrl,
+               String fatherId,
+               String fatherName,
+               String motherId,
+               String motherName,
+               @Nullable String notes) {
+        this.id = id;
+        this.breedId = breedId;
+        this.pedigreeName = pedigreeName;
+        this.name = name;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.chipNumber = chipNumber;
+        this.titles = titles;
+        this.rabiesVaccDate = rabiesVaccDate;
+        this.virusVaccDate = virusVaccDate;
+        this.allergies = allergies;
+        this.thumbnailUrl = thumbnailUrl;
+        this.pedigreeUrl = pedigreeUrl;
+        this.fatherId = fatherId;
+        this.fatherName = fatherName;
+        this.motherId = motherId;
+        this.motherName = motherName;
+        this.notes = notes;
+    }
 }

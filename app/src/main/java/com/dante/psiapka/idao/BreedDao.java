@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import com.dante.psiapka.model.Breed;
+import com.dante.psiapka.model.BreedAndDog;
 
 import java.util.List;
 
@@ -17,8 +18,11 @@ public interface BreedDao {
     @Insert
     void insertBreed(Breed breed);
 
-    @Delete
-    void deleteBreed(int id);
+//    @Delete
+//    void deleteBreed(int id);  // IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID
+
+    @Query("SELECT * FROM breed")
+    List<BreedAndDog> breedsWithDogsList();
 
     //TODO dodać resztę instrukcji SQL
 }

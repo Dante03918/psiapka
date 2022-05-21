@@ -17,6 +17,6 @@ public interface DogDao {
     @Insert
     void insertDog(Dog dog);
 
-    @Delete
-    void deleteDog(int id);
+//    @Delete
+//    void deleteDog(int id);  //  IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID
 }
