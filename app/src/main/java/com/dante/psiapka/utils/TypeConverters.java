@@ -10,21 +10,26 @@ public class TypeConverters {
 
     @TypeConverter
     public String fromGender(Enum<Gender> genderEnum) {
-        return genderEnum.toString();
+
+        return genderEnum == null ? "" : genderEnum.toString();
+
     }
 
     @TypeConverter
     public Enum<Gender> toGender(String gender) {
-        return Gender.valueOf(gender);
+
+        return gender.equals("")  ? Gender.UNKNOWN : Gender.valueOf(gender);
     }
 
     @TypeConverter
     public Date toDate(Long longDate) {
-        return new Date(longDate);
+
+        return longDate == null ? new Date(System.currentTimeMillis()) : new Date(longDate);
     }
 
     @TypeConverter
     public Long fromDate(Date date) {
-        return date.getTime();
+
+        return date == null ? 0L : date.getTime();
     }
 }
