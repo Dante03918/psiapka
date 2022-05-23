@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 @Entity(tableName = "breed")
 public class Breed {
 
@@ -33,5 +35,18 @@ public class Breed {
     public Breed(String name, String thumbnailUrl) {
         this.name = name;
         this.thumbnailUrl = thumbnailUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Breed)) return false;
+        Breed breed = (Breed) o;
+        return name.equals(breed.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, thumbnailUrl);
     }
 }
