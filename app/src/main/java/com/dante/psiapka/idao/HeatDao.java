@@ -4,6 +4,8 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
+
 import com.dante.psiapka.model.Heat;
 
 import java.util.List;
@@ -16,6 +18,12 @@ public interface HeatDao {
     @Insert
     void insertHeat(Heat heat);
 
-//    @Delete
-//    void deleteHeat(int id);  // IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID
+    @Update
+    void updateHeat(Heat heat);
+
+    @Query("DELETE FROM heat WHERE id = :id")
+    int deleteHeatById(int id);  //  IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID
+
+    @Delete
+    int deleteHeat(Heat heat);
 }

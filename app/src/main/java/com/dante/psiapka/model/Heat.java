@@ -3,6 +3,7 @@ package com.dante.psiapka.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -11,11 +12,22 @@ import java.util.Date;
 public class Heat {
 
     @PrimaryKey(autoGenerate = true)
-    int id;
+    public int id;
 
     @ColumnInfo(name = "dog_id")
-    int dog_id;
+    public int dog_id;
 
     @ColumnInfo(name = "heat_start_date")
-    Date heatStartDate;
+    public Date heatStartDate;
+
+    public Heat(int id, int dog_id, Date heatStartDate) {
+        this.id = id;
+        this.dog_id = dog_id;
+        this.heatStartDate = heatStartDate;
+    }
+    @Ignore
+    public Heat(int dog_id, Date heatStartDate) {
+        this.dog_id = dog_id;
+        this.heatStartDate = heatStartDate;
+    }
 }

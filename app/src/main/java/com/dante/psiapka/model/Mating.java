@@ -12,17 +12,17 @@ import java.util.Date;
 public class Mating {
 
     @PrimaryKey(autoGenerate = true)
-    int id;
+    public int id;
 
     @ColumnInfo(name = "heat_id")
-    int heatId;
+    public int heatId;
 
     @ColumnInfo(name = "mating_date")
-    Date matingDate;
+    public Date matingDate;
 
     @ColumnInfo(name = "father_id")
-    int fatherDogId;
+    public int fatherDogId;
 
     @ColumnInfo(name = "father_dog_name")
-    String name;
+    public String name;
 }

@@ -10,9 +10,10 @@ import com.dante.psiapka.configurations.Database;
 import com.dante.psiapka.model.Breed;
 import com.dante.psiapka.model.BreedAndDog;
 import com.dante.psiapka.model.Dog;
+import com.dante.psiapka.model.DogAndHeat;
 import com.dante.psiapka.model.Gender;
+import com.dante.psiapka.model.Heat;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,14 +24,12 @@ import static org.hamcrest.Matchers.hasItemInArray;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Date;
 import java.util.List;
 @RunWith(AndroidJUnit4.class)
-public class DbTests {
+public class DogDaoTest {
 
     public Database database;
     public BreedDao breedDao;
@@ -70,19 +69,6 @@ public class DbTests {
     }
 
     @Test
-    public void getDogsWithBreeds(){
-
-        List<BreedAndDog> breedAndDog;
-        breedAndDog = breedDao.breedsWithDogsList();
-
-        assertFalse(breedAndDog.get(0).dogs.isEmpty());
-
-    }
-
-
-    //DogDao tests
-
-    @Test
     public void dogInsertTest(){
 
         assertEquals(testDog, dogDao.getDogs().get(0));
@@ -120,7 +106,17 @@ public class DbTests {
 
     @Test
     public void deleteDogTest(){
-        assertEquals(1, dogDao.deleteDog(testDog.id));
+        assertEquals(1, dogDao.deleteDogById(testDog.id));
     }
 
+
+    // DogAndHeat tests
+
+//    @Test
+//    public void getDogWithHeats(){
+//        database.heatDao().insertHeat(new Heat(1, new Date(System.currentTimeMillis())));
+//
+//        List<DogAndHeat> dogAndHeats = dogDao.dogsWithHeats();        //Test do przeniesienia !
+//        assertFalse(dogAndHeats.get(0).heatList.isEmpty());
+//    }
 }
