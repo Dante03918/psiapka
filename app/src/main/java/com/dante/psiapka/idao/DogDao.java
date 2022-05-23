@@ -4,6 +4,8 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
+
 import com.dante.psiapka.model.Dog;
 
 import java.util.List;
@@ -17,6 +19,9 @@ public interface DogDao {
     @Insert
     void insertDog(Dog dog);
 
-//    @Delete
-//    void deleteDog(int id);  //  IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID
+    @Update
+    void updateDog(Dog dog);
+
+    @Query("DELETE FROM dog WHERE id = :id")
+    int deleteDog(int id);  //  IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID
 }
