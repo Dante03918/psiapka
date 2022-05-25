@@ -19,7 +19,7 @@ public interface MatingDao {
     void insertMating(Mating mating);
 
     @Update
-    void updateMating(Mating mating);
+    int updateMating(Mating mating);
 
     @Query("DELETE FROM mating WHERE id = :id")
     int deleteMatingById(int id);  //  IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID

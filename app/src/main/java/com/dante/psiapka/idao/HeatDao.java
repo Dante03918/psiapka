@@ -22,7 +22,7 @@ public interface HeatDao {
     void updateHeat(Heat heat);
 
     @Query("DELETE FROM heat WHERE id = :id")
-    int deleteHeatById(int id);  //  IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID
+    int deleteHeatById(int id);
 
     @Delete
     int deleteHeat(Heat heat);
