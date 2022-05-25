@@ -26,37 +26,13 @@ public class DogWithBreedRelationTest {
 
     public Database database;
     public BreedDao breedDao;
-    public DogDao dogDao;
-    public Dog testDog;
-
+    public InitDB initDB;
 
     @Before
     public void setUp(){
-        Context context = ApplicationProvider.getApplicationContext();
-        database = Room.inMemoryDatabaseBuilder(context, Database.class).build();
+        initDB = new InitDB();
+        database = initDB.initDB();
         breedDao = database.breedDao();
-        dogDao = database.dogDao();
-        testDog = new Dog(1,
-                1,
-                "PedigreeName",
-                "Zosia",
-                Gender.FEMALE,
-                new Date(11111111111L),
-                987654321,
-                "",
-                new Date(222222222L),
-                new Date(2332343524L),
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "");
-
-        breedDao.insertBreed(new Breed("Chin", null));
-        dogDao.insertDog(testDog);
     }
 
     @Test

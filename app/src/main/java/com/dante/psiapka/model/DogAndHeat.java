@@ -10,7 +10,7 @@ public class DogAndHeat {
     public Dog dog;
     @Relation(
             parentColumn = "id",
-            entityColumn = "dog_id"
+            entityColumn = "dogId"
     )
     public List<Heat> heatList;
 }

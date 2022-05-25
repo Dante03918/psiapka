@@ -27,6 +27,7 @@ android {
     }
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
     compileSdkVersion 32
     buildToolsVersion '32.0.0'
@@ -39,6 +40,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'android.arch.persistence.room:runtime:1.1.1'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
