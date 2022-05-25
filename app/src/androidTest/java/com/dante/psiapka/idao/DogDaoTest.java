@@ -1,82 +1,40 @@
 package com.dante.psiapka.idao;
 
-import android.content.Context;
-
-import androidx.room.Room;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.dante.psiapka.configurations.Database;
-import com.dante.psiapka.model.Breed;
-import com.dante.psiapka.model.BreedAndDog;
 import com.dante.psiapka.model.Dog;
-import com.dante.psiapka.model.DogAndHeat;
 import com.dante.psiapka.model.Gender;
-import com.dante.psiapka.model.Heat;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItemInArray;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 import java.util.Date;
-import java.util.List;
+
 @RunWith(AndroidJUnit4.class)
-public class DogDaoTest {
+public class DogDaoTest extends TestCase {
 
     public Database database;
-    public BreedDao breedDao;
-    public DogDao dogDao;
-    public Dog testDog;
-    public Breed breedTest;
-
+    public InitDB initDB;
 
     @Before
     public void setUp(){
-       Context context = ApplicationProvider.getApplicationContext();
-       database = Room.inMemoryDatabaseBuilder(context, Database.class).build();
-       breedDao = database.breedDao();
-       dogDao = database.dogDao();
-        testDog = new Dog(1,
-                1,
-                "PedigreeName",
-                "Zosia",
-                Gender.FEMALE,
-                new Date(11111111111L),
-                987654321,
-                "",
-                new Date(222222222L),
-                new Date(2332343524L),
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "");
-        breedTest = new Breed("Chin", null);
-
-        breedDao.insertBreed(breedTest);
-        dogDao.insertDog(testDog);
+        initDB = new InitDB();
+        database = initDB.initDB();
     }
 
     @Test
-    public void dogInsertTest(){
+    public void dogInsertAndGetTest(){
 
-        assertEquals(testDog, dogDao.getDogs().get(0));
+        assertEquals(initDB.dogForInsert, database.dogDao().getDogs().get(0));
     }
 
     @Test
     public void updateDogEntity(){
-        dogDao.updateDog(new Dog(1,
+        database.dogDao().updateDog(new Dog(1,
                 1,
                 "PedigreeName",
                 "Frania",
@@ -89,12 +47,12 @@ public class DogDaoTest {
                 "",
                 "",
                 "",
+                5,
                 "",
-                "",
-                "",
+                7,
                 "",
                 ""));
-        assertEquals("Frania", dogDao.getDogs().stream()
+        assertEquals("Frania", database.dogDao().getDogs().stream()
                 .map(el -> el.name)
                 .filter(el -> el.equals("Frania"))
                 .findFirst()
@@ -106,7 +64,7 @@ public class DogDaoTest {
 
     @Test
     public void deleteDogTest(){
-        assertEquals(1, dogDao.deleteDogById(testDog.id));
+        assertEquals(1, database.dogDao().deleteDogById(initDB.dogForInsert.id));
     }
 
 
