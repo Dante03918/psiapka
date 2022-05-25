@@ -1,17 +1,18 @@
 package com.dante.psiapka.model;
 
+import static androidx.room.ForeignKey.CASCADE;
+
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import java.util.Date;
 import java.util.Objects;
 
-@Entity(tableName = "dog", foreignKeys = {@ForeignKey(entity = Breed.class, parentColumns = "id", childColumns = "breedId")})
+@Entity(tableName = "dog", foreignKeys = {@ForeignKey(entity = Breed.class, parentColumns = "id", childColumns = "breedId", onDelete = CASCADE)})
 public class Dog {
 
     @PrimaryKey(autoGenerate = true)
@@ -42,11 +43,11 @@ public class Dog {
     @ColumnInfo(name = "pedigreeUrl")
     public String pedigreeUrl;
     @ColumnInfo(name = "fatherId")   //foreign key from breed table
-    public String fatherId;
+    public int fatherId;
     @ColumnInfo(name = "fatherName")
     public String fatherName;
     @ColumnInfo(name = "motherId")   //foreign key from breed table
-    public String motherId;
+    public int motherId;
     @ColumnInfo(name = "motherName")
     public String motherName;
     @Nullable
@@ -66,9 +67,9 @@ public class Dog {
                String allergies,
                String thumbnailUrl,
                String pedigreeUrl,
-               String fatherId,
+               int fatherId,
                String fatherName,
-               String motherId,
+               int motherId,
                String motherName,
                @Nullable String notes) {
         this.id = id;
