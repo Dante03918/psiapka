@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.dante.psiapka.model.Heat;
+import com.dante.psiapka.model.HeatAndProgesteroneTest;
 
 import java.util.List;
 
@@ -26,4 +27,7 @@ public interface HeatDao {
 
     @Delete
     int deleteHeat(Heat heat);
+
+    @Query("SELECT * FROM heat")
+    List<HeatAndProgesteroneTest> getHeatAndProgesteroneTest();
 }
