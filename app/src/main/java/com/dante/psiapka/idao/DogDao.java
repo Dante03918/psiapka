@@ -9,6 +9,7 @@ import androidx.room.Update;
 import com.dante.psiapka.model.Dog;
 import com.dante.psiapka.model.DogAndHeat;
 import com.dante.psiapka.model.DogAndMedicalTest;
+import com.dante.psiapka.model.DogAndPhoto;
 import com.dante.psiapka.model.DogWithMatingAndHeat;
 
 import java.util.List;
@@ -39,4 +40,7 @@ public interface DogDao {
 
     @Query("SELECT * FROM dog")
      List<DogAndMedicalTest> dogAndMedicalTest();
+
+    @Query("SELECT * FROM dog")
+    List<DogAndPhoto> dogAndPhoto();
 }
