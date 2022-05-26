@@ -33,14 +33,14 @@ public interface DogDao {
     int deleteDog(Dog dog);
 
     @Query("SELECT * FROM dog")
-     List<DogAndHeat> dogsWithHeats();
+     List<DogAndHeat> getDogsWithHeats();
 
     @Query("SELECT * FROM dog")
-     List<DogWithMatingAndHeat> dogWithMatingAndHeat();
+     List<DogWithMatingAndHeat> getDogWithMatingAndHeat();
 
     @Query("SELECT * FROM dog")
-     List<DogAndMedicalTest> dogAndMedicalTest();
+     List<DogAndMedicalTest> getDogAndMedicalTest();
 
     @Query("SELECT * FROM dog")
-    List<DogAndPhoto> dogAndPhoto();
+    List<DogAndPhoto> getDogAndPhoto();
 }

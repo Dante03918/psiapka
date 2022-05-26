@@ -26,6 +26,6 @@ public class DogAndMedicalTestTest extends TestCase {
 
     @Test
     public void getDogAndMedicalTestTest(){
-        assertEquals(dogDao.dogAndMedicalTest().get(0).medicalTests.get(0), initDB.medicalTestForInsert);
+        assertEquals(dogDao.getDogAndMedicalTest().get(0).medicalTests.get(0), initDB.medicalTestForInsert);
     }
 }

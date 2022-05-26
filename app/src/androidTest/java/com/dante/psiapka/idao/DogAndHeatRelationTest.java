@@ -26,7 +26,7 @@ public class DogAndHeatRelationTest extends TestCase {
     }
     @Test
     public void getDogAndHeatsTest(){
-        DogAndHeat dogAndHeat = dogDao.dogsWithHeats().get(0);
+        DogAndHeat dogAndHeat = dogDao.getDogsWithHeats().get(0);
         assertEquals(dogAndHeat.heatList.get(0), initDB.heatForInsert);
     }
 }

@@ -3,7 +3,6 @@ package com.dante.psiapka.idao;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.dante.psiapka.configurations.Database;
-import com.dante.psiapka.model.Heat;
 
 import junit.framework.TestCase;
 
@@ -27,11 +26,11 @@ public class DogWithMatingAndHeatRelationTest extends TestCase {
 
     @Test
     public void getHeatFromDogWithMatingAndHeatTest(){
-        assertEquals(dogDao.dogWithMatingAndHeat().get(0).heats.get(0), initDB.heatForInsert);
+        assertEquals(dogDao.getDogWithMatingAndHeat().get(0).heats.get(0), initDB.heatForInsert);
     }
 
     @Test
     public void getMatingFromDogWithMatingAndHeatTest(){
-        assertEquals(dogDao.dogWithMatingAndHeat().get(0).matings.get(0), initDB.matingForInsert);
+        assertEquals(dogDao.getDogWithMatingAndHeat().get(0).matings.get(0), initDB.matingForInsert);
     }
 }

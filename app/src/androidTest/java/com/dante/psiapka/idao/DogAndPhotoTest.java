@@ -26,6 +26,6 @@ public class DogAndPhotoTest extends TestCase {
 
     @Test
     public void getDogAndPhoto(){
-       assertEquals(dogDao.dogAndPhoto().get(0).photos.get(0), initDB.photoForInsert);
+       assertEquals(dogDao.getDogAndPhoto().get(0).photos.get(0), initDB.photoForInsert);
     }
 }
