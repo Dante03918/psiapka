@@ -1,5 +1,8 @@
 package com.dante.psiapka.configurations;
 
+import android.content.Context;
+
+import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
@@ -19,6 +22,9 @@ import com.dante.psiapka.model.MedicalTest;
 import com.dante.psiapka.model.Photo;
 import com.dante.psiapka.model.ProgesteroneTest;
 import com.dante.psiapka.model.ThumbnailFile;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @androidx.room.Database(entities = {
         Breed.class,
@@ -40,6 +46,19 @@ public abstract class Database extends RoomDatabase {
     public abstract ProgesteroneTestDao progesteroneTestDao();
     public abstract ThumbnailFileDao thumbnailFileDao();
 
+    private static volatile Database INSTANCE;
+    private static final int NUMBER_OF_THREADS = 4;
 
-    //Każde DAO musi mieć swoją abstrakcyjną metodę, zwracającą Obiekt tego DAO
+    static final ExecutorService dbWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
+    static Database getInstance(final Context context){
+        if (INSTANCE == null) {
+            synchronized (Database.class){
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), Database.class, "psiapka_db").build();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 }
