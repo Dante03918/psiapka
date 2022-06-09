@@ -7,6 +7,9 @@ import com.dante.psiapka.model.Breed;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class BreedDataManipulation {
 
@@ -16,7 +19,6 @@ public class BreedDataManipulation {
        Database.dbWriteExecutor.execute( () -> databaseInstance = Database.getInstance(context));
    }
 
-
     public void insertBreedToDatabase(Breed breed) {
         Database.dbWriteExecutor.execute(() -> {
             databaseInstance.breedDao().insertBreed(breed);
@@ -25,10 +27,13 @@ public class BreedDataManipulation {
 
     public List<Breed> getBreedsFromDb() {
 
-        List<Breed> allBreeds = new ArrayList<>();
+        Future<List<Breed>> result = Database.dbWriteExecutor.submit(() -> databaseInstance.breedDao().getBreeds());
 
-        Database.dbWriteExecutor.execute(() -> allBreeds.addAll(databaseInstance.breedDao().getBreeds()));
-        return allBreeds;
+        try {
+            return result.get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-
 }

@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 //import com.dante.nexttraineeapp.databinding.ActivityMainBinding;
 
 import com.dante.psiapka.configurations.Database;
@@ -18,6 +20,14 @@ import com.dante.psiapka.fragments.AddBreedLayoutFragment;
 import com.dante.psiapka.fragments.BreedListFragment;
 import com.dante.psiapka.interfaces.PassDataBetweenAddBreedLayoutFragmentAndMainActivity;
 import com.dante.psiapka.model.Breed;
+import com.dante.psiapka.templates.BreedTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 
 public class MainActivity extends AppCompatActivity implements PassDataBetweenAddBreedLayoutFragmentAndMainActivity {
 
@@ -29,9 +39,13 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
 
     private Context context;
 
+    List<RelativeLayout> listFilledWithBreeds;
+
+    BreedTemplate breedTemplate = new BreedTemplate();
+
 //    private List<BreedModel> breeds = new ArrayList<>();
 
-//    private Line/arLayout layout;
+    private LinearLayout layout;
 
 //    Fragment addBreedFragment = new AddBreedFragment();
 
@@ -47,12 +61,14 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
 
         fragmentManager = getSupportFragmentManager();
 
-//    MainFragment mainFragment = new MainFragment(MainActivity.this);
-    fragmentManager.beginTransaction()
+        final BreedListFragment breedListFragment = new BreedListFragment(breedTemplate.setBreedList(breedDataManipulation.getBreedsFromDb(), context));
+
+        fragmentManager.beginTransaction()
             .setReorderingAllowed(true)
-//            .addSharedElement(findViewById(R.id.containerFrame), "CONTAINER12")
-            .add(R.id.containerFrame, BreedListFragment.class, null)
+            .add(R.id.containerFrame, breedListFragment, null)
             .commit();
+
+
 
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
