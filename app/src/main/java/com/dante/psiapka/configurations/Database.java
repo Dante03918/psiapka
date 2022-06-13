@@ -38,22 +38,29 @@ import java.util.concurrent.Executors;
 @TypeConverters(com.dante.psiapka.utils.TypeConverters.class)
 public abstract class Database extends RoomDatabase {
     public abstract BreedDao breedDao();
+
     public abstract DogDao dogDao();
+
     public abstract HeatDao heatDao();
+
     public abstract MatingDao matingDao();
+
     public abstract MedicalTestDao medicalTestDao();
+
     public abstract PhotoDao photoDao();
+
     public abstract ProgesteroneTestDao progesteroneTestDao();
+
     public abstract ThumbnailFileDao thumbnailFileDao();
 
-    private static volatile Database INSTANCE;
+        private static volatile Database INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
-    static final ExecutorService dbWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    public static final ExecutorService dbWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static Database getInstance(final Context context){
+    public static Database getInstance(final Context context) {
         if (INSTANCE == null) {
-            synchronized (Database.class){
+            synchronized (Database.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), Database.class, "psiapka_db").build();
                 }

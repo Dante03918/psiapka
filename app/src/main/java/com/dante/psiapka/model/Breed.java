@@ -17,6 +17,8 @@ public class Breed {
     @ColumnInfo(name = "thumbnailUrl")
     public String thumbnailUrl;
 
+    public int getId() {return id;}
+
     public String getName() {
         return name;
     }

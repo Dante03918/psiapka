@@ -8,7 +8,6 @@ import androidx.room.Update;
 
 import com.dante.psiapka.model.Breed;
 import com.dante.psiapka.model.BreedAndDog;
-import com.dante.psiapka.model.Dog;
 
 import java.util.List;
 
@@ -22,13 +21,20 @@ public interface BreedDao {
     void insertBreed(Breed breed);
 
     @Delete
-    void deleteBreed(Breed breed);  // IllegalArgumentException !!! Usunąć można encję po ID a nie samo ID
+    void deleteBreed(Breed breed);
+
+    @Query("DELETE FROM breed WHERE id = :id")
+    void deleteBreedById(int id);
 
     @Update
     int updateBreed(Breed breed);
 
     @Query("SELECT * FROM breed")
     List<BreedAndDog> breedsWithDogsList();
+
+    @Query("DELETE FROM breed")
+    void deleteAllBreeds();
+
 
     //TODO dodać resztę instrukcji SQL
 }

@@ -1,14 +1,18 @@
 package com.dante.psiapka;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 //import com.dante.nexttraineeapp.databinding.ActivityMainBinding;
@@ -21,12 +25,12 @@ import com.dante.psiapka.fragments.BreedListFragment;
 import com.dante.psiapka.interfaces.PassDataBetweenAddBreedLayoutFragmentAndMainActivity;
 import com.dante.psiapka.model.Breed;
 import com.dante.psiapka.templates.BreedTemplate;
+import com.dante.psiapka.utils.ConvertIntentToBitmap;
+import com.dante.psiapka.utils.SaveImageToInternalStorage;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+
 
 
 public class MainActivity extends AppCompatActivity implements PassDataBetweenAddBreedLayoutFragmentAndMainActivity {
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
 
     private LinearLayout layout;
 
+    BreedListFragment breedListFragment = null;
+
 //    Fragment addBreedFragment = new AddBreedFragment();
 
     @Override
@@ -57,18 +63,24 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
 
         breedDataManipulation.initDbInstance(context);
 
+
         setContentView(R.layout.container);
 
+        // breedDataManipulation.deleteAllFromBreedTable();
         fragmentManager = getSupportFragmentManager();
 
-        final BreedListFragment breedListFragment = new BreedListFragment(breedTemplate.setBreedList(breedDataManipulation.getBreedsFromDb(), context));
+
+        try {
+            breedListFragment = new BreedListFragment(breedTemplate.setBreedList(breedDataManipulation.getBreedsFromDb().get(), context));
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
         fragmentManager.beginTransaction()
-            .setReorderingAllowed(true)
-            .add(R.id.containerFrame, breedListFragment, null)
-            .commit();
-
-
+                .setReorderingAllowed(true)
+                .add(R.id.containerFrame, breedListFragment, null)
+                .addToBackStack(null)
+                .commit();
 
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
@@ -83,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
 //        button.setBackground(this.getDrawable(R.drawable.back));
 
 //        layout = findViewById(R.id.linearLayout);
-
 
 
 //        button.setOnClickListener(view -> {
@@ -150,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
 //                    startActivity(intent);
 
 
-                }
+    }
 //        );
 
 //        retrieveDataFromAddBreedActivity(getIntent());
@@ -160,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
 //        }
 
     public void retrieveDataFromAddBreedActivity(Intent intent) {
-
 
 
         String breed = intent.getStringExtra("BREED");
@@ -188,16 +198,32 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
     }
 
     @Override
-    public void addBreedToDB(Breed breed) {
-        System.out.println(breed.getName());
+    public void addBreedToDB(Breed breed, Intent imageData) {
 
-        breedDataManipulation.insertBreedToDatabase(breed);
+        ConvertIntentToBitmap imageBitmap = new ConvertIntentToBitmap();
+        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+        SaveImageToInternalStorage saveImageToInternalStorage = new SaveImageToInternalStorage();
 
-        breedDataManipulation.getBreedsFromDb();
+        String absolutePath = saveImageToInternalStorage.save(contextWrapper, "breedImages", imageBitmap.convert(imageData, this.getContentResolver()));
+
+        breedDataManipulation.insertBreedToDatabase(new Breed(breed.getName(), absolutePath));
+
+        replaceFragmentWithBreedList();
+
+    }
+
+    @Override
+    public void replaceFragmentWithBreedList() {
+        try {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.containerFrame, new BreedListFragment(breedTemplate.setBreedList(breedDataManipulation.getBreedsFromDb().get(), context)), null)
+                    .addToBackStack(null)
+                    .commit();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
-
-
 
 
 //

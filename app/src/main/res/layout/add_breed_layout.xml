@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout
 
-            tools:context=".AddBreedFragment"
+            tools:context=".AddBreedLayoutFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
     >

@@ -5,9 +5,7 @@ import android.content.Context;
 import com.dante.psiapka.configurations.Database;
 import com.dante.psiapka.model.Breed;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -20,20 +18,32 @@ public class BreedDataManipulation {
    }
 
     public void insertBreedToDatabase(Breed breed) {
-        Database.dbWriteExecutor.execute(() -> {
-            databaseInstance.breedDao().insertBreed(breed);
-        });
+
+        Future insert  = Database.dbWriteExecutor.submit(() -> databaseInstance.breedDao().insertBreed(breed));
+
+        try{
+            insert.get();
+        }catch (ExecutionException | InterruptedException e){
+            e.printStackTrace();
+        }
     }
 
-    public List<Breed> getBreedsFromDb() {
+    public Future<List<Breed>> getBreedsFromDb() {
 
         Future<List<Breed>> result = Database.dbWriteExecutor.submit(() -> databaseInstance.breedDao().getBreeds());
 
+        return result;
+    }
+
+    public void deleteById (int id ){
         try {
-            return result.get();
+            Database.dbWriteExecutor.submit(() -> databaseInstance.breedDao().deleteBreedById(id)).get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-            return null;
         }
+    }
+
+    public void deleteAllFromBreedTable(){
+        Database.dbWriteExecutor.execute( () -> databaseInstance.breedDao().deleteAllBreeds());
     }
 }

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.dante.psiapka.interfaces.PassDataBetweenFragmentAndActivity;
+import com.dante.psiapka.interfaces.PassDataBetweenAddBreedLayoutFragmentAndMainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,10 +18,10 @@ import com.dante.psiapka.interfaces.PassDataBetweenFragmentAndActivity;
 public class MainFragment extends Fragment  {
 
 
-    private PassDataBetweenFragmentAndActivity passDataBetweenFragmentAndActivity;
+    private PassDataBetweenAddBreedLayoutFragmentAndMainActivity passDataBetweenAddBreedLayoutFragmentAndMainActivity;
 
-    public MainFragment(PassDataBetweenFragmentAndActivity passDataBetweenFragmentAndActivity){
-        this.passDataBetweenFragmentAndActivity = passDataBetweenFragmentAndActivity;
+    public MainFragment(PassDataBetweenAddBreedLayoutFragmentAndMainActivity passDataBetweenAddBreedLayoutFragmentAndMainActivity){
+        this.passDataBetweenAddBreedLayoutFragmentAndMainActivity = passDataBetweenAddBreedLayoutFragmentAndMainActivity;
     }
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,7 +82,7 @@ public class MainFragment extends Fragment  {
 
         Button button = view.findViewById(R.id.changeFragment);
 
-        button.setOnClickListener(view1 -> passDataBetweenFragmentAndActivity.dataRecived("switch")
+        button.setOnClickListener(view1 -> passDataBetweenAddBreedLayoutFragmentAndMainActivity.showAddBreedLayoutFragment("switch")
         );
 
 
