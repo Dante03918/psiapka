@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.fragment.app.FragmentContainerView
+<RelativeLayout
 
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerFrameParent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+        <include layout="@layout/toolbar"/>
+
+    </FrameLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/containerFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".MainActivity"
-        android:id="@+id/containerFrame"
-        >
+        android:layout_marginTop="56dp">
 
+    </androidx.fragment.app.FragmentContainerView>
 
-</androidx.fragment.app.FragmentContainerView>
+</RelativeLayout>
