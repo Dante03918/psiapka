@@ -5,6 +5,9 @@
     <string name="apply">Dodaj</string>
     <string name="add_breed">Dodaj rasę</string>
 
+<!--  Message for user when denied permission-->
+    <string name="permDenied">Nie możemy kontynuować ze względu na Twoj wybór. Możesz dokonać zmiany w ustawieniach</string>
+
 
     <!-- hints -->
 
