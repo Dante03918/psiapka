@@ -1,8 +1,18 @@
 package com.dante.psiapka.fragments;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BlendMode;
+import android.graphics.BlendModeColorFilter;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.icu.text.DateTimePatternGenerator;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +24,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,8 +35,10 @@ import com.dante.psiapka.MainActivity;
 import com.dante.psiapka.R;
 import com.dante.psiapka.configurations.Database;
 import com.dante.psiapka.dataManipulation.BreedDataManipulation;
+import com.dante.psiapka.databinding.MainFragmentFromActivityBinding;
 import com.dante.psiapka.interfaces.PassDataBetweenAddBreedLayoutFragmentAndMainActivity;
 import com.dante.psiapka.model.Breed;
+import com.dante.psiapka.utils.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +50,7 @@ public class BreedListFragment extends Fragment {
 
     List<RelativeLayout> filledLayouts;
     LinearLayout rootLayout;
+    Button addBreedButton;
 
 
     public List<RelativeLayout> getFilledLayouts() {
@@ -51,21 +65,26 @@ public class BreedListFragment extends Fragment {
         this.filledLayouts = filledLayouts;
     }
 
+    MainFragmentFromActivityBinding mainFragmentFromActivityBinding;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.main_fragment_from_activity, container, false);
+        // View inflatedView = inflater.inflate(R.layout.main_fragment_from_activity, container, false);
 
+        mainFragmentFromActivityBinding = MainFragmentFromActivityBinding.inflate(inflater, container, false);
 
-        passDataBetweenAddBreedLayoutFragmentAndMainActivity =(PassDataBetweenAddBreedLayoutFragmentAndMainActivity) getActivity();
-        rootLayout = inflatedView.findViewById(R.id.linearLayout);
+        passDataBetweenAddBreedLayoutFragmentAndMainActivity = (PassDataBetweenAddBreedLayoutFragmentAndMainActivity) getActivity();
+        rootLayout = mainFragmentFromActivityBinding.linearLayout;
 
-        for(RelativeLayout layout : filledLayouts){
+        for (RelativeLayout layout : filledLayouts) {
             rootLayout.addView(layout);
+
             layout.setClickable(true);
 
             layout.setOnClickListener((view) -> {
@@ -74,6 +93,19 @@ public class BreedListFragment extends Fragment {
             });
             layout.setOnLongClickListener(this::imageLongClicked);
         }
+        addBreedButton = new Button(getActivity());
+        addBreedButton.setBackgroundResource(R.drawable.oval);
+        addBreedButton.setCompoundDrawablesRelativeWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic__plus), null, null, null);
+        addBreedButton.setText(R.string.add_breed);
+        addBreedButton.setTextColor(getResources().getColor(R.color.black));
+        Drawable drawable = addBreedButton.getBackground();
+        drawable.setColorFilter(Color.parseColor("#03DAC5"), PorterDuff.Mode.SRC_ATOP);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Transformer.dpToPx(150, getActivity()), Transformer.dpToPx(43, getActivity()));
+        params.topMargin = Transformer.dpToPx(20, getActivity());
+        params.bottomMargin = Transformer.dpToPx(20, getActivity());
+        addBreedButton.setLayoutParams(params);
+        addBreedButton.setPadding(40, 0 , 40, 0);
+        rootLayout.addView(addBreedButton);
 
 //        Button openFileChooserBtn = inflatedView.findViewById(R.id.addBreedOpenFileChooser);
 //        Button applyBtn = inflatedView.findViewById(R.id.addBreedApply);
@@ -84,9 +116,6 @@ public class BreedListFragment extends Fragment {
 //            fileChooser.setType("*/*");
 //
 //        });
-
-
-
 
 
 //        inflatedView.findViewById(R.id.addBreedButton).setOnClickListener(view -> {
@@ -154,10 +183,10 @@ public class BreedListFragment extends Fragment {
 
 
 //        retrieveDataFromAddBreedActivity(getIntent());
-        return inflatedView;
+        return mainFragmentFromActivityBinding.getRoot();
     }
 
-        ImageView imageView;
+    ImageView imageView;
     Uri imageUriToSend;
     EditText breedEditText;
 
@@ -165,21 +194,19 @@ public class BreedListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        Button addBreedButton = view.findViewById(R.id.addBreedButton);
+        //utton addBreedButton = view.findViewById(R.id.addBreedButton);
 
-
-
-        addBreedButton.setOnClickListener( (view1) -> {
+        addBreedButton.setOnClickListener((view1) -> {
             passDataBetweenAddBreedLayoutFragmentAndMainActivity.showAddBreedLayoutFragment("switch");
             rootLayout.removeAllViews();
         });
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void sendDataToMainActivity(View view){
+    public void sendDataToMainActivity(View view) {
 
         Intent intent = new Intent(getActivity(), MainActivity.class);
-        intent.putExtra("BREED",breedEditText.getText().toString() );
+        intent.putExtra("BREED", breedEditText.getText().toString());
         intent.putExtra("IAMGE_URI", imageUriToSend);                   //TODO Obsłużyć brak zdjęcia albo brak nazwy
 
         startActivity(intent);
@@ -191,17 +218,18 @@ public class BreedListFragment extends Fragment {
 //        startActivity(fileChooser);
 //    }
 
-    public void breedList(ArrayList<Breed> breeds){
+    public void breedList(ArrayList<Breed> breeds) {
 
     }
 
-    public void imageClicked(View view){
+    public void imageClicked(View view) {
         System.out.println("Przejście do szczegółów rasy");
 
     }
-    public boolean imageLongClicked(View view){
 
-        int breedId = ((RelativeLayout)view).getChildAt(0).getId();
+    public boolean imageLongClicked(View view) {
+
+        int breedId = ((RelativeLayout) view).getChildAt(0).getId();
 
         AlertDialog.Builder deleteConfirmation = new AlertDialog.Builder(getActivity());
         deleteConfirmation.setTitle("Delete confirmation");
@@ -214,7 +242,6 @@ public class BreedListFragment extends Fragment {
         });
 
         deleteConfirmation.show();
-
 
 
         return true;
