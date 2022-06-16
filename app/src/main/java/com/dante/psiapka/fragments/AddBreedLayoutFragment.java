@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.dante.psiapka.camera.CameraIntent;
 import com.dante.psiapka.databinding.AddBreedLayoutBinding;
 import com.dante.psiapka.interfaces.PassDataBetweenAddBreedLayoutFragmentAndMainActivity;
 import com.dante.psiapka.model.Breed;
@@ -56,6 +57,11 @@ public class AddBreedLayoutFragment extends Fragment {
 
                     }
                 });
+
+        addBreedLayoutBinding.openCamera.setOnClickListener((t) -> {
+            CameraIntent cameraIntent = new CameraIntent(getActivity());
+            cameraIntent.startCameraIntent();
+        });
 
         addBreedLayoutBinding.addBreedApply.setOnClickListener((t) -> {
             breedName = addBreedLayoutBinding.breedEditText.getText().toString();
