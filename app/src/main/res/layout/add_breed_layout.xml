@@ -2,44 +2,66 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
 
-            tools:context=".AddBreedLayoutFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-    >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddBreedLayoutFragment">
 
         <Button
-                android:text="@string/add_breed_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/addBreedOpenFileChooser"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="59dp"
-                app:layout_constraintEnd_toEndOf="parent"
-        />
+            android:id="@+id/openCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="@string/take_a_photo"
+            app:layout_constraintEnd_toStartOf="@+id/addBreedOpenFileChooser"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/addBreedOpenFileChooser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="@string/add_breed_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/openCamera"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/breedEditText"
-                android:hint="@string/add_breed_input_field"
-                app:layout_constraintTop_toBottomOf="@+id/addBreedOpenFileChooser"
-                android:layout_marginTop="60dp" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:minHeight="48dp"/>
+            android:id="@+id/breedEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:ems="10"
+            android:hint="@string/add_breed_input_field"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addBreedOpenFileChooser" />
 
-        <ImageView android:layout_width="300dp" android:layout_height="300dp"
-                   android:id="@+id/add_breed_image_view"
-                   app:layout_constraintTop_toBottomOf="@+id/breedEditText"
-                   android:layout_marginTop="60dp" app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintStart_toStartOf="parent"/>
+        <ImageView
+            android:id="@+id/add_breed_image_view"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/breedEditText" />
+
         <Button
-                android:text="@string/apply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/addBreedApply"
+            android:id="@+id/addBreedApply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
 
-                app:layout_constraintTop_toBottomOf="@+id/add_breed_image_view"
-                android:layout_marginTop="52dp" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+            android:text="@string/apply"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_breed_image_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
