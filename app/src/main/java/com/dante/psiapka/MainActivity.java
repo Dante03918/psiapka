@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         context = getApplicationContext();

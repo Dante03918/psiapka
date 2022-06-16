@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Next trainee app</string>
     <string name="add_breed_image">Dodaj zdjęcie</string>
+    <string name="take_a_photo">Zrób zdjęcie</string>
     <string name="apply">Dodaj</string>
+    <string name="add_breed">Dodaj rasę</string>
 
 
     <!-- hints -->
