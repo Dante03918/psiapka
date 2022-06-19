@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.net.Uri;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -27,7 +28,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
-
 public class MainActivity extends AppCompatActivity implements PassDataBetweenAddBreedLayoutFragmentAndMainActivity {
 
     private String permission;
@@ -41,11 +41,13 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
     private LinearLayout layout;
     private BreedListFragment breedListFragment = null;
 
-    public MainActivity(String permission, int requestCodeForCheckPermission){
+    public MainActivity(String permission, int requestCodeForCheckPermission) {
         this.permission = permission;
         this.requestCodeForCheckPermission = requestCodeForCheckPermission;
     }
-    public MainActivity(){}
+
+    public MainActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,16 +195,17 @@ public class MainActivity extends AppCompatActivity implements PassDataBetweenAd
     }
 
     @Override
-    public void addBreedToDB(Breed breed, Intent imageData) {
+    public void addBreedToDB(Breed breed, @Nullable Intent imageData) {
 
-        ConvertIntentToBitmap imageBitmap = new ConvertIntentToBitmap();
-        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-        SaveImageToInternalStorage saveImageToInternalStorage = new SaveImageToInternalStorage();
-
-        String absolutePath = saveImageToInternalStorage.save(contextWrapper, "breedImages", imageBitmap.convert(imageData, this.getContentResolver()));
-
-        breedDataManipulation.insertBreedToDatabase(new Breed(breed.getName(), absolutePath));
-
+        if (imageData == null) {
+            breedDataManipulation.insertBreedToDatabase(new Breed(breed.getName(), breed.getThumbnailUrl()));
+        } else {
+            ConvertIntentToBitmap imageBitmap = new ConvertIntentToBitmap();
+            ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+            SaveImageToInternalStorage saveImageToInternalStorage = new SaveImageToInternalStorage();
+            String absolutePath = saveImageToInternalStorage.save(contextWrapper, "breedImages", imageBitmap.convert(imageData, this.getContentResolver()));
+            breedDataManipulation.insertBreedToDatabase(new Breed(breed.getName(), absolutePath));
+        }
         replaceFragmentWithBreedList();
 
     }
