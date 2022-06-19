@@ -12,16 +12,10 @@ import java.util.UUID;
 public class SaveImageToInternalStorage {
 
     public String save(ContextWrapper contextWrapper, String directoryName, Bitmap image){
-
-
         File imageDir = contextWrapper.getDir(directoryName, Context.MODE_PRIVATE);
-
         UUID randomFileName = UUID.randomUUID();
-
         File path = new File(imageDir, randomFileName.toString());
-
         FileOutputStream fileOutputStream = null;
-
         try {
             fileOutputStream = new FileOutputStream(path);
             image.compress(Bitmap.CompressFormat.WEBP, 25, fileOutputStream);
@@ -32,4 +26,5 @@ public class SaveImageToInternalStorage {
         }
         return imageDir.getAbsolutePath() + "/" + randomFileName;
     }
+
 }

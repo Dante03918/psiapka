@@ -18,9 +18,7 @@ public class BreedDataManipulation {
    }
 
     public void insertBreedToDatabase(Breed breed) {
-
         Future insert  = Database.dbWriteExecutor.submit(() -> databaseInstance.breedDao().insertBreed(breed));
-
         try{
             insert.get();
         }catch (ExecutionException | InterruptedException e){
@@ -29,9 +27,7 @@ public class BreedDataManipulation {
     }
 
     public Future<List<Breed>> getBreedsFromDb() {
-
         Future<List<Breed>> result = Database.dbWriteExecutor.submit(() -> databaseInstance.breedDao().getBreeds());
-
         return result;
     }
 
@@ -46,4 +42,5 @@ public class BreedDataManipulation {
     public void deleteAllFromBreedTable(){
         Database.dbWriteExecutor.execute( () -> databaseInstance.breedDao().deleteAllBreeds());
     }
+
 }

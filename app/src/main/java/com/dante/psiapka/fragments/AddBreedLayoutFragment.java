@@ -67,9 +67,6 @@ public class AddBreedLayoutFragment extends Fragment {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if(result.getResultCode() == Activity.RESULT_OK){
-//                        imageData = result.getData();
-//                        uploadedImageUri = imageData.getData();
-
                     }
                 }
         );
@@ -111,9 +108,7 @@ public class AddBreedLayoutFragment extends Fragment {
     }
 
     private void sendDataToMainActivity(View view) {
-
         passDataBetweenAddBreedLayoutFragmentAndMainActivity.addBreedToDB(new Breed(breedName, uploadedImageUri.toString()), imageData);
-
     }
 
     public void getUrlFromFileChooser(View view) {
